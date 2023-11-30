@@ -53,14 +53,16 @@ namespace WebScraping
                 //Console.WriteLine(s);
                 if (x < 5)
                 {
-                    Console.WriteLine($"Outcome1: {GetFloatOdds(s)}");
-                    //Outcome1.Add(GetFloatOdds(s));
+                    //Console.WriteLine($"Outcome1: {GetFloatOdds(s)}");
+                    Outcome1.Add(GetFloatOdds(s));
                 } else if (x < 10)
                 {
-                    Console.WriteLine($"Outcome2: {GetFloatOdds(s)}");
+                    //Console.WriteLine($"Outcome2: {GetFloatOdds(s)}");
+                    Outcome2.Add(GetFloatOdds(s));
                 } else
                 {
-                    Console.WriteLine($"Draw: {GetFloatOdds(s)}");
+                    //Console.WriteLine($"Draw: {GetFloatOdds(s)}");
+                    Draw.Add(GetFloatOdds(s));
                 }
 
 
@@ -68,9 +70,18 @@ namespace WebScraping
                 x++;
             }
 
+            float a = Outcome1.Max();
+            float b = Outcome2.Max();
+            float c = Outcome2.Max();
 
+            float stake1 = 100.00f;
+            float payout1 = a * stake1;
+            float stake2 = payout1 / b;
+            float stake3 = payout1 / c;
 
+            float profit = payout1 - stake1 - stake2 - stake3;
 
+            Console.WriteLine(profit);
             /*
             int x = 0;
             foreach (var node in nodes)
