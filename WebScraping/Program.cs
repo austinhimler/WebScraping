@@ -1,4 +1,9 @@
-﻿using HtmlAgilityPack;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using CsvHelper;
+using System.IO;
+using System.Text;
+using System.Globalization;
 
 namespace WebScraping
 {
@@ -7,30 +12,36 @@ namespace WebScraping
         public static void Main()
         {
             string url = "https://en.wikipedia.org/wiki/List_of_SpongeBob_SquarePants_episodes";
-            var web = new HtmlWeb();
-            var document = web.Load(url);
+            
+            var chromeOptions = new ChromeOptions();
+            chromeOptions.AddArguments("headless");
+            var driver = new ChromeDriver();
 
-            var nodes = document.DocumentNode.SelectNodes("//*[@id=\"mw-content-text\"]/div[1]/table[position()>1 and position()<15]/tbody/tr[position()>1]");
+            driver.Navigate().GoToUrl(url);
 
-            List<Episode> episodes = new List<Episode>();
+            var nodes = driver.FindElements(By.XPath(""));
+
+            List<Episode> episodes = new ();
 
             foreach (var node in nodes )
             {
                 episodes.Add(new Episode()
                 {
-                    EpisodeNumber = HtmlEntity.DeEntitize(node.SelectSingleNode("th[1]").InnerText),
-                    Title = HtmlEntity.DeEntitize(node.SelectSingleNode("td[2]").InnerText),
-                    Directors = HtmlEntity.DeEntitize(node.SelectSingleNode("td[3]").InnerText),
-                    WrittenBy = HtmlEntity.DeEntitize(node.SelectSingleNode("td[4]").InnerText),
-                    Released = HtmlEntity.DeEntitize(node.SelectSingleNode("td[5]").InnerText)
+                    EpisodeNumber = node.FindElement(By.XPath("")).Text,
+
                 });
             }
 
+            using (var writer = new StreamWriter("output.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(episodes);
+            }
         }
 
-        public class Episode
+        public class SoccerEvent
         {
-            public string EpisodeNumber { get; set; }
+            public string Team1 { get; set; }
             public string Title { get; set; }
             public string Directors { get; set; }
             public string WrittenBy { get; set; }
