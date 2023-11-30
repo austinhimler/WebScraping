@@ -14,7 +14,7 @@ namespace WebScraping
 
             List<Episode> episodes = new List<Episode>();
 
-            foreach ( var node in nodes )
+            foreach (var node in nodes )
             {
                 episodes.Add(new Episode()
                 {
