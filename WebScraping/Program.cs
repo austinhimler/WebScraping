@@ -11,7 +11,7 @@ namespace WebScraping
     {
         public static void Main()
         {
-            string url = "https://en.wikipedia.org/wiki/List_of_SpongeBob_SquarePants_episodes";
+            string url = "https://www.oddschecker.com/us/soccer/usa/mls/fc-cincinnati-v-columbus-crew";
             
             var chromeOptions = new ChromeOptions();
             chromeOptions.AddArguments("headless");
@@ -19,15 +19,19 @@ namespace WebScraping
 
             driver.Navigate().GoToUrl(url);
 
-            var nodes = driver.FindElements(By.XPath(""));
 
-            List<Episode> episodes = new ();
+
+            
+
+            var nodes = driver.FindElements(By.XPath("//*[@id=\"odds-column\"]"));
+
+            List<SoccerEvent> episodes = new ();
 
             foreach (var node in nodes )
             {
-                episodes.Add(new Episode()
+                episodes.Add(new SoccerEvent()
                 {
-                    EpisodeNumber = node.FindElement(By.XPath("")).Text,
+                    Team1 = node.FindElement(By.XPath("")).Text,
 
                 });
             }
@@ -42,7 +46,7 @@ namespace WebScraping
         public class SoccerEvent
         {
             public string Team1 { get; set; }
-            public string Title { get; set; }
+            public string Team2 { get; set; }
             public string Directors { get; set; }
             public string WrittenBy { get; set; }
             public string Released { get; set; }
