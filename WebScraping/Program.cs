@@ -54,7 +54,7 @@ namespace WebScraping
                 //Console.WriteLine(s);
                 if (x < 5)
                 {
-                    //Console.WriteLine($"Outcome1: {GetFloatOdds(s)}");
+                    Console.WriteLine($"Outcome1: {GetFloatOdds(s)}");
                     Outcome1.Add(GetFloatOdds(s));
                 } else if (x < 10)
                 {
@@ -71,9 +71,10 @@ namespace WebScraping
                 x++;
             }
 
+            /*
             float a = Outcome1.Max();
             float b = Outcome2.Max();
-            float c = Outcome2.Max();
+            float c = Draw.Max();
 
             float stake1 = 100.00f;
             float payout1 = a * stake1;
@@ -83,6 +84,30 @@ namespace WebScraping
             float profit = payout1 - stake1 - stake2 - stake3;
 
             Console.WriteLine(profit);
+            */
+            
+            Console.WriteLine($"Outcome1.Max: {Outcome1.Max()}");
+            float a = Outcome1.Max();
+            Console.WriteLine($"Outcome2.Max: {Outcome2.Max()}");
+            float b = Outcome2.Max();
+            Console.WriteLine($"Draw.Max: {Draw.Max()}");
+            float c = Draw.Max();
+
+            var check = (1 / a) + (1 / b) + (1 / c);
+
+            Console.WriteLine($"Check value: {check}");
+
+            if (check < 1) Console.WriteLine("ARBITRAGE");
+            else Console.WriteLine("NOT FOUND");
+
+
+
+
+
+
+
+
+
             /*
             int x = 0;
             foreach (var node in nodes)
