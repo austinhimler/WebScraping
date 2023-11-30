@@ -27,8 +27,9 @@ namespace WebScraping
         }
         public static void Main()
         {
-            string url = "https://www.oddschecker.com/us/soccer/usa/mls/fc-cincinnati-v-columbus-crew";
-            
+            //string url = "https://www.oddschecker.com/us/soccer/usa/mls/fc-cincinnati-v-columbus-crew";
+
+            string url = "https://www.oddschecker.com/us/soccer/english/premier-league/luton-v-arsenal";
             var chromeOptions = new ChromeOptions();
             chromeOptions.AddArguments("headless");
             var driver = new ChromeDriver();
